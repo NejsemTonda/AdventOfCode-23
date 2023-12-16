@@ -11,8 +11,8 @@ O.#..O.#.#
 #OO..#....
 """
 
-#with open("input", 'r') as file:
-#	lines = file.read()
+with open("input", 'r') as file:
+	lines = file.read()
 
 lines = list(map(lambda x : ["#"] + list(x) + ["#"], lines.strip().split('\n')))
 lines = [["#"]*len(lines[0])] + lines + [["#"]*len(lines[0])]
@@ -101,24 +101,32 @@ def get_load(s):
 s = '\n'.join(map("".join, lines))
 seen = [s]
 loads = [get_load(lines)]
-for i in range(100000):
+i = 0 
+while True:
 	north(lines)
 	west(lines)
 	south(lines)
 	east(lines)
-	print(get_load(lines))
 	s = '\n'.join(map("".join, lines))
+	print(get_load(lines))
 	if s in seen:
 		break
 	seen.append(s)
 	loads.append(get_load(lines))
+	i += 1
 
+print(get_load(lines))
+print(loads)
 
 s = '\n'.join(map("".join, lines))
 first = seen.index(s)
 
+print(first)
+print(i)
+
+
 print()
 print()
 print()
-print(loads[(1_000_000_000 - first) % (first-i) + first])
+print(loads[(1_000_000_000 - first) % (first-i-1)])
 
